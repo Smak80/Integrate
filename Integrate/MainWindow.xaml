@@ -1,0 +1,57 @@
+﻿<Window x:Class="Integrate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Integrate"
+        mc:Ignorable="d"
+        Title="Вычисление интегралов" Height="330" Width="500">
+	<Window.Resources>
+		<local:EnumToBoolConverter x:Key="Converter"/>
+		<Style x:Key="Common">
+			<Setter Property="Control.FontSize" Value="16"/>
+			<Setter Property="Control.FontFamily" Value="Cambria"/>
+			<Setter Property="Control.Margin" Value="4"/>
+		</Style>
+		<Style TargetType="TextBlock" BasedOn="{StaticResource ResourceKey=Common}"/>
+		<Style TargetType="TextBox" BasedOn="{StaticResource ResourceKey=Common}"/>
+		<Style TargetType="RadioButton" BasedOn="{StaticResource ResourceKey=Common}"/>
+		<Style TargetType="Button" BasedOn="{StaticResource ResourceKey=Common}"/>
+	</Window.Resources>
+    <Grid Margin="0,-1,0,1">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="7*"/>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="6*"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock Text="Подынтегральная функция: " Grid.Row="0" Grid.Column="0"/>
+		<TextBox x:Name="Function" Text ="{Binding Function}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+		<TextBlock Text="Пределы интегрирования: " Grid.Row="1" Grid.Column="0"/>
+		<TextBlock Text="Нижний: " Grid.Row="1" Grid.Column="1" TextAlignment="Right"/>
+		<TextBox x:Name="LowLimit" Text ="{Binding LowLimit}" Grid.Row="1" Grid.Column="2" />
+		<TextBlock Text="Верхний: "  Grid.Row="2" Grid.Column="1" TextAlignment="Right"/>
+		<TextBox x:Name="HighLimit" Text ="{Binding HighLimit}" Grid.Row="2" Grid.Column="2"/>
+		<TextBlock Text="Способ вычисления: " Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center"/>
+		<RadioButton Content="Кв. ф-ла. ср. прям." IsChecked="{Binding Method, Converter={StaticResource ResourceKey=Converter}, ConverterParameter={x:Static local:Method.MiddleRect}}"  Grid.Row="4" Grid.Column="0" GroupName="Methods"/>
+		<RadioButton Content="Кв. ф-ла. трап." IsChecked="{Binding Method, Converter={StaticResource ResourceKey=Converter}, ConverterParameter={x:Static local:Method.Trapezoid}}" Grid.Row="5" Grid.Column="0" GroupName="Methods"/>
+		<RadioButton Content="Кв. ф-ла. Симпсона" IsChecked="{Binding Method, Converter={StaticResource ResourceKey=Converter}, ConverterParameter={x:Static local:Method.Simpson}}" Grid.Row="6" Grid.Column="0" GroupName="Methods"/>
+		<TextBlock Text="Разбиение  " Grid.Row="7" Grid.Column="0"/>
+		<TextBlock Text="n = " Grid.Row="7" Grid.Column="1" TextAlignment="Right"/>
+		<TextBox x:Name="Parts" Text ="{Binding Parts}" Grid.Row="7" Grid.Column="2" />
+		<Button x:Name="Calculate" Content="Вычислить!" Grid.Row="8" Grid.ColumnSpan="3"/>
+		<TextBlock Text="Результат: " Grid.Row="9" Grid.Column="0" TextAlignment="Right" />
+		<TextBlock x:Name="Result" Text ="{Binding Result}" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"/>
+	</Grid>
+</Window>
