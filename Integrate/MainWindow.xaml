@@ -18,6 +18,9 @@
 		<Style TargetType="RadioButton" BasedOn="{StaticResource ResourceKey=Common}"/>
 		<Style TargetType="Button" BasedOn="{StaticResource ResourceKey=Common}"/>
 	</Window.Resources>
+	<Window.CommandBindings>
+		<CommandBinding Command="local:Commands.Integrate" Executed="CommandBinding_Executed"/>
+	</Window.CommandBindings>
     <Grid Margin="0,-1,0,1">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
@@ -50,7 +53,7 @@
 		<TextBlock Text="Разбиение  " Grid.Row="7" Grid.Column="0"/>
 		<TextBlock Text="n = " Grid.Row="7" Grid.Column="1" TextAlignment="Right"/>
 		<TextBox x:Name="Parts" Text ="{Binding Parts}" Grid.Row="7" Grid.Column="2" />
-		<Button x:Name="Calculate" Content="Вычислить!" Grid.Row="8" Grid.ColumnSpan="3"/>
+		<Button x:Name="Calculate" Content="Вычислить!" Grid.Row="8" Grid.ColumnSpan="3" Command="local:Commands.Integrate"/>
 		<TextBlock Text="Результат: " Grid.Row="9" Grid.Column="0" TextAlignment="Right" />
 		<TextBlock x:Name="Result" Text ="{Binding Result}" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"/>
 	</Grid>

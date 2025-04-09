@@ -16,19 +16,24 @@ namespace Integrate
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IntegralData _integralData;
+        private MainViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            _integralData = new IntegralData()
+            _viewModel = new MainViewModel()
             {
-                Function = "cos(x)",
+                Function = "Cos(x)",
                 LowLimit = 0,
                 HighLimit = 1,
                 Parts = 10
             };
-            DataContext = _integralData;
+            DataContext = _viewModel;
+            
+        }
 
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _viewModel.OnIntegrate();
         }
     }
 }

@@ -1,82 +1,37 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using NCalc;
 namespace Integrate
 {
     public enum Method { MiddleRect, Trapezoid, Simpson };
-    public class IntegralData : INotifyPropertyChanged
+    public class IntegralData 
     {
-        private string _function = "";
-        private double _lowLimit;
-        private double _highLimit;
-        private int _parts;
-        private double? _result = null;
-        private Method _method = Method.MiddleRect;
-
-        public string Function 
+        /*var expr = new NCalc.Expression("Cos(x)");
+            expr.Parameters.Add("x", Math.PI);
+            var res = expr.Evaluate();
+            MessageBox.Show(res.ToString());*/
+        public static double IntegrateByMiddleRect(Expression func, double a, double b, int parts)
         {
-            get => _function; 
-            set 
-            { 
-                _function = value;
-                OnPropertyChanged();
-            }
-        }
-        public double LowLimit
-        {
-            get => _lowLimit;
-            set
+            double area = 0.0;
+            double h = (b - a) / parts;
+            for (int i = 0; i < parts;i++)
             {
-                _lowLimit = value;
-                OnPropertyChanged();
+                func.Parameters.Clear();
+                func.Parameters.Add("x",a+h*(i+0.5));
+                func.Parameters.Add("X", a + h * (i + 0.5));
+                area += h * (double)func.Evaluate();
             }
-        }
-        public double HighLimit
-        {
-            get => _highLimit;
-            set
-            {
-                _highLimit = value;
-                OnPropertyChanged();
-            }
-        }
-        public int Parts
-        {
-            get => _parts;
-            set
-            {
-                _parts = value;
-                OnPropertyChanged();
-            }
-        }
-        public double? Result
-        {
-            get => _result;
-            set
-            {
-                _result = value;
-                OnPropertyChanged();
-            }
+            return area;
         }
 
-        public Method Method
+        public static double IntegrateByTrapezoid(Expression func, double a, double b, int parts)
         {
-            get => _method;
-            set
-            {
-                _method = value;
-                OnPropertyChanged();
-            }
+            return 0.0;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
+        public static double IntegrateBySimpson(Expression func, double a, double b, int parts)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
+            return 0.0;
         }
     }
 }
